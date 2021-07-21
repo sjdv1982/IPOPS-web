@@ -3,6 +3,10 @@ PROJNAME = "IPOPS"
 
 import os, sys, shutil
 
+import seamless
+seamless.database_sink.connect()
+seamless.database_cache.connect()
+
 from seamless.highlevel import Context, Cell, Transformer
 
 ctx = None
