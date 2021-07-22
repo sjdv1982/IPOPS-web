@@ -31,6 +31,7 @@ name=attract_2021_07_21
 params="$ATTRACTDIR/../attract.par receptorr.pdb ligandr.pdb --fix-receptor"
 scoreparams="$ATTRACTDIR/../attract.par receptorr.pdb ligandr.pdb --score --fix-receptor"
 gpuparams0="-d 0 -p $ATTRACTDIR/../attract.par -r receptorr.pdb"
+#gpuparams0="-c 8 -p $ATTRACTDIR/../attract.par -r receptorr.pdb"
 gpuparams="$gpuparams0 -l ligandr.pdb"
 
 #grid parameters
