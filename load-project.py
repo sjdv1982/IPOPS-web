@@ -4,6 +4,7 @@ PROJNAME = "IPOPS"
 import os, sys, shutil
 
 import seamless
+seamless.set_ncores(4)  # Try to run 3 docking runs in parallel, plus status graph 
 seamless.database_sink.connect()
 seamless.database_cache.connect()
 
@@ -20,8 +21,45 @@ async def define_graph(ctx):
     """Code to define the graph
     Leave this function empty if you want load() to load the graph from graph/PROJNAME.seamless 
     """
-    pass
 
+    '''
+    background = ["1AVXB", "2SNIB", "7CEIB"] #, "1ACBB", "1ATNB"]
+
+    ctx.receptor = Cell("text")
+    ctx.receptor.set(open("examples/1AVXA.pdb").read())
+
+    code = open("attract-script/attract.sh").read()
+    code = code.replace("trap ", "#trap ")
+    code += """
+cat result.dat > RESULT
+"""
+
+    ctx.attract = Context()
+    ctx.attract.result = Context()
+    for pdbcode in background:
+        pdbfile = "ligands/{}.pdb".format(pdbcode)
+        pdbdata = open(pdbfile).read()
+
+        dock = Transformer()
+        setattr(ctx.attract, pdbcode, dock)
+        dock.language = "docker"
+        dock.docker_image = "rpbs/attract"
+        dock.docker_options = {
+            "shm_size":"8gb",
+            "device_requests":[
+                {"count":-1, "capabilities":[['gpu']]}
+            ]
+        }
+        dock.code = code
+        dock["receptor.pdb"] = ctx.receptor
+
+        dock["ligand.pdb"] = pdbdata
+        result = Cell("text")
+        setattr(ctx.attract.result, pdbcode, dock.result)
+        result = getattr(ctx.attract.result, pdbcode)
+        result.celltype = "text"
+    '''
+    
 async def load():
     from seamless.metalevel.bind_status_graph import bind_status_graph_async
     import json

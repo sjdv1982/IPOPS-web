@@ -4,5 +4,24 @@
   "index": {
     "title": "Seamless webform"
   },
-  "transformers": {}
+  "transformers": {
+    "attract/1AVXB": {
+      "component": "transformer-status",
+      "params": {
+        "title": "Transformer 1AVXB"
+      }
+    },
+    "attract/2SNIB": {
+      "component": "transformer-status",
+      "params": {
+        "title": "Transformer 2SNIB"
+      }
+    },
+    "attract/7CEIB": {
+      "component": "transformer-status",
+      "params": {
+        "title": "Transformer 7CEIB"
+      }
+    }
+  }
 }
