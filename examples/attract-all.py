@@ -41,3 +41,5 @@ for pdbcode in background:
     setattr(ctx.attract.result, pdbcode, dock.result)
     result = getattr(ctx.attract.result, pdbcode)
     result.celltype = "text"
+
+#ctx.compute()
